@@ -64,7 +64,11 @@ public final class GraphicsUtil {
 
     public static Image getImage(String path) throws URISyntaxException, IOException {
         try {
-            return imageCache.computeIfAbsent(path, key -> {
+            return imageCache.compute(path, (key, cacheEntry) -> {
+                if (cacheEntry != null) {
+                    return new ImageCacheEntry(cacheEntry.image(), TimeUtil.getCurMilli());
+                }
+
                 try {
                     return new ImageCacheEntry(ImageIO.read(new ByteArrayInputStream(getImageBytes(path))), TimeUtil.getCurMilli());
                 } catch (IOException | URISyntaxException exception) {
