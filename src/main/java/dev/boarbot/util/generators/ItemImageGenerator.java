@@ -241,7 +241,6 @@ public class ItemImageGenerator extends ImageGenerator {
 
         g2d.drawImage(this.generateUserImageData(), ORIGIN[0], ORIGIN[1], null);
 
-        // Encoded lazily by getBytes, since grouped pages only need the image
         this.generatedImage = generatedImage;
         this.generatedImageBytes = null;
     }
